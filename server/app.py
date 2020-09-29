@@ -1,11 +1,18 @@
 from flask import Flask, request
 import requests
 from utils import getCloudNames
+from flask_caching import Cache
+
+cache = Cache()
 
 app = Flask(__name__)
 
-@app.route('/api/v1/clouds', methods=['GET'])
+app.config['CACHE_TYPE'] = 'simple'
 
+cache.init_app(app)
+
+@app.route('/api/v1/clouds', methods=['GET'])
+@cache.cached(timeout=60*60) # 60 mins cache
 def getClouds():
 
   cloud_response_aiven = requests.get('https://api.aiven.io/v1/clouds').json()
