@@ -1,0 +1,7 @@
+{
+  "do": "DigitalOcean",
+  "aws": "Amazon Web Services",
+  "google": "Google Cloud",
+  "azure": "Microsoft Azure",
+  "upcloud": "UpCloud"
+}
