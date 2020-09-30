@@ -1,13 +1,6 @@
 {
   "clouds": [
       {
-          "cloud_description": "Africa, South Africa - Amazon Web Services: Cape Town",
-          "cloud_name": "aws-af-south-1",
-          "geo_latitude": -33.92,
-          "geo_longitude": 18.42,
-          "geo_region": "africa"
-      },
-      {
         "cloud_description": "Asia, Bahrain - Amazon Web Services: Bahrain",
         "cloud_name": "aws-me-south-1",
         "geo_latitude": 26.07,
@@ -15,11 +8,25 @@
         "geo_region": "south asia"
       },
       {
-          "cloud_description": "Africa, South Africa - Azure: South Africa North",
-          "cloud_name": "azure-south-africa-north",
-          "geo_latitude": -26.198,
-          "geo_longitude": 28.03,
-          "geo_region": "africa"
+        "cloud_description": "Asia, India - Amazon Web Services: Mumbai",
+        "cloud_name": "aws-ap-south-1",
+        "geo_latitude": 19.13,
+        "geo_longitude": 72.89,
+        "geo_region": "south asia"
+      },
+      {
+        "cloud_description": "Asia, Hong Kong - Amazon Web Services: Hong Kong",
+        "cloud_name": "aws-ap-east-1",
+        "geo_latitude": 22.5,
+        "geo_longitude": 114.0,
+        "geo_region": "east asia"
+      },
+      {
+        "cloud_description": "Africa, South Africa - Azure: South Africa North",
+        "cloud_name": "azure-south-africa-north",
+        "geo_latitude": -26.198,
+        "geo_longitude": 28.03,
+        "geo_region": "africa"
       },
       {
         "cloud_description": "Asia, Indonesia - Google Cloud: Jakarta",
