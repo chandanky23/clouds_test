@@ -11,35 +11,48 @@ app.config['CACHE_TYPE'] = 'simple'
 
 cache.init_app(app)
 
-@app.route('/api/v1/clouds', methods=['GET'])
+# Get the available clouds data from the primary source and cache it.
 @cache.cached(timeout=60*60) # 60 mins cache
-def getClouds():
+def getAivenClouds():
+  return requests.get('https://api.aiven.io/v1/clouds').json()
 
-  cloud_response_aiven = requests.get('https://api.aiven.io/v1/clouds').json()
 
-  # Get the cloud names from config and create a dictionary of available keys
-  cloud_list = {}
-  cloud_config = getCloudNames()
-  for k in cloud_config:
-    cloud_list[k] = {
-      'platform': cloud_config[k],
-      'cloud_instances': []
-    }
+# This method returns the cloud data with respect to
+# provider: e.g: aws, google
+# regions: e.g: regions available for the platform
+# distance: either near_first or far_first
+@app.route('/api/v1/clouds', methods=['GET'])
+def getCloudsPerProvider():
 
-  # 1. Loop over the list and create a dict to hold specific cloud information
-  #     Create a abreviation from the avilable cloud names, i.e, @cloud_abr
-  # 2. Check if the cloud name abreviation is in cloud_list
-  #     if present, add the new instance in the key instance
-  #     if not, create the key and the new key instance to key instance and add the platform
+  cloud_response_aiven = getAivenClouds()
+
+  provider = request.args.get('provider')
+  region = request.args.get('region')
+  lat = request.args.get('lat')
+  lng = request.args.get('lng')
+
+  response = {
+    "abreviation": "",
+    "provider": "",
+    "cloud_instances": []
+  }
+
   for cloud in cloud_response_aiven['clouds']:
     cloud_abr = cloud['cloud_name'].split('-')[0]
-    if cloud_abr in cloud_list:
-      cloud_list[cloud_abr]['cloud_instances'].append(cloud)
-    else:
-      cloud_list[cloud_abr]['platform'] = cloud_config[cloud_abr]
-      cloud_list[cloud_abr]['cloud_instances'] = cloud
 
-  return cloud_list
+    if cloud_abr.lower() == provider.lower():
+      response['abreviation'] = provider.lower()
+      response['provider'] = getCloudNames(provider.lower())
+      response['cloud_instances'].append(cloud)
+
+  # update response as per selected region
+  if region is not None:
+    result = list(filter(lambda reg: reg['geo_region'] == region, response['cloud_instances']))
+    response['cloud_instances'] = result
+
+  # Update response as per distance filter applied
+
+  return response
 
 if __name__ == "__main__":
   app.run(debug=True)
