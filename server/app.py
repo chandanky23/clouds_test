@@ -1,16 +1,12 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 from utils import getCloudNames, getDistanceAndSort
 from flask_caching import Cache
 
 cache = Cache()
-
 app = Flask(__name__)
-
 app.config['CACHE_TYPE'] = 'simple'
-
 cache.init_app(app)
-
 
 # Get the available clouds data from the primary source and cache it.
 @cache.cached(timeout=60*60) # 60 mins cache
@@ -20,31 +16,41 @@ def getAivenClouds():
 
 # This method returns the cloud data with respect to
 # provider: e.g: aws, google
-# regions: e.g: regions available for the platform
+# regions: e.g: regions available for the provider
 # distance: either nearest_first or farthest_first, @default:- nearest_first
 @app.route('/api/v1/clouds', methods=['GET'])
 def getCloudsPerProvider():
-
   cloud_response_aiven = getAivenClouds()
 
+  
   provider = request.args.get('provider')
+  if provider is None:
+    response = {}
+    for cloud in cloud_response_aiven['clouds']:
+      short_name = cloud['cloud_name'].split('-')[0]
+      if short_name not in response:
+        response[short_name] = getCloudNames(short_name)
+
+    return jsonify(response)
+
+
   region = request.args.get('region')
   lat = request.args.get('lat')
   lng = request.args.get('lng')
   direction = request.args.get('direction')
 
   response = {
-    "abreviation": "",
-    "provider": "",
-    "cloud_instances": []
+    'short_name': '',
+    'provider': '',
+    'cloud_instances': []
   }
 
   # Get the list of clouds as per provider
   for cloud in cloud_response_aiven['clouds']:
-    cloud_abr = cloud['cloud_name'].split('-')[0]
+    short_name = cloud['cloud_name'].split('-')[0]
 
-    if cloud_abr.lower() == provider.lower():
-      response['abreviation'] = provider.lower()
+    if short_name.lower() == provider.lower():
+      response['short_name'] = provider.lower()
       response['provider'] = getCloudNames(provider.lower())
       response['cloud_instances'].append(cloud)
 
@@ -61,5 +67,5 @@ def getCloudsPerProvider():
   return response
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   app.run(debug=True)

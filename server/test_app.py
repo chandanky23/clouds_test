@@ -20,8 +20,16 @@ class CloudApiTest(unittest.TestCase):
   provider_region_nearest_first_url = '{}?provider=aws&region=south asia&lat=15.10&lng=60.03&direction=nearest_first'.format(base_url)
   provider_region_farthest_first_url = '{}?provider=aws&region=south asia&lat=15.10&lng=60.03&direction=farthest_first'.format(base_url)
 
+  response_all_provider_uri = {
+    "aws": "Amazon Web Services",
+    "azure": "Microsoft Azure",
+    "do": "DigitalOcean",
+    "google": "Google Cloud",
+    "upcloud": "UpCloud"
+  }
+
   response_provider_uri = {
-    "abreviation": "aws",
+    "short_name": "aws",
     "provider": "Amazon Web Services",
     "cloud_instances": [
       {
@@ -49,7 +57,7 @@ class CloudApiTest(unittest.TestCase):
   }
   
   response_provider_region_uri = {
-    "abreviation": "aws",
+    "short_name": "aws",
     "provider": "Amazon Web Services",
     "cloud_instances": [
       {
@@ -70,7 +78,7 @@ class CloudApiTest(unittest.TestCase):
   }
 
   response_provider_region_coord_nearest_uri = {
-    "abreviation": "aws",
+    "short_name": "aws",
     "provider": "Amazon Web Services",
     "cloud_instances": [
       {
@@ -93,7 +101,7 @@ class CloudApiTest(unittest.TestCase):
   }
 
   response_provider_region_coord_farthest_uri = {
-    "abreviation": "aws",
+    "short_name": "aws",
     "provider": "Amazon Web Services",
     "cloud_instances": [
       {
@@ -120,18 +128,25 @@ class CloudApiTest(unittest.TestCase):
     r = requests.get(CloudApiTest.aiven_api)
     self.assertEqual(r.status_code, 200)
 
+  # Get available cloud providers
+  def test_available_cloud_providers(self):
+    r = requests.get(CloudApiTest.base_url)
+    self.assertEqual(r.status_code, 200)
+    self.assertEqual(len(r.json()), 5)
+    self.assertDictEqual(r.json(), CloudApiTest.response_all_provider_uri)
+
   # Get all instances for a particular cloud provider
   def test_get_clouds_provider(self):
     r = requests.get(CloudApiTest.provider_url)
     self.assertEqual(r.status_code, 200)
-    self.assertEqual(r.json()['abreviation'], 'aws')
+    self.assertEqual(r.json()['short_name'], 'aws')
     self.assertEqual(r.json()['provider'], 'Amazon Web Services')
 
   # Get instances for a particular cloud provider at a particular region
   def test_get_clouds_provider_region(self):
     r = requests.get(CloudApiTest.provider_region_url)
     self.assertEqual(r.status_code, 200)
-    self.assertEqual(r.json()['abreviation'], 'aws')
+    self.assertEqual(r.json()['short_name'], 'aws')
     self.assertEqual(r.json()['provider'], 'Amazon Web Services')
     self.assertEqual(r.json()['cloud_instances'][0]['geo_region'], 'south asia')
     self.assertEqual(len(r.json()['cloud_instances']), 2)
