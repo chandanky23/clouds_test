@@ -1,19 +1,26 @@
 import React from 'react'
-import { Title, Block, Filter } from './styles'
+import { Title, Block, Filter, Back } from './styles'
 import { CloudProps, DirectionProps } from 'app/types'
 import Card from 'app/components/Card'
 import Switch from 'app/components/Switch'
+import backicon from 'app/assets/images/back.svg'
 
 interface Props {
   clouds: CloudProps[]
   direction: DirectionProps
   setDirection: (p: DirectionProps) => void
+  resetRegion: () => void
 }
 
-const Clouds: React.FC<Props> = ({ clouds, direction, setDirection }) => (
+const Clouds: React.FC<Props> = ({ clouds, direction, setDirection, resetRegion }) => (
   <>
+    <Back onClick={() => resetRegion()}>
+      <img src={backicon} /> &nbsp; Go Back
+    </Back>
     <Filter>
-      <Title>Select a cloud</Title>
+      <Back>
+        <Title>Select a cloud</Title>
+      </Back>
       {clouds.length > 1 && <Switch direction={direction} setDirection={setDirection} />}
     </Filter>
     <Block>

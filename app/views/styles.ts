@@ -45,7 +45,7 @@ export const Headline = styled.h1`
 `
 
 export const SelectedProvider = styled(Section)`
-  margin-top: 10%;
+  margin-top: 5%;
   padding: 16px 10px;
 `
 
@@ -104,4 +104,15 @@ export const Filter = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+`
+
+export const Back = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.whiteColor};
+  border: none;
+  width: fit-content;
+  margin-bottom: 20px;
+  cursor: pointer;
 `

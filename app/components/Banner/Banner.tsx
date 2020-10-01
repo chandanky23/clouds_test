@@ -1,9 +1,14 @@
 import React from 'react'
-import { Container, Title } from './styles'
+import { Container, Title, More } from './styles'
 
-const Banner: React.FC<{ bannerName: string }> = ({ bannerName }) => (
+interface Props {
+  bannerName: string
+  reset: () => void
+}
+const Banner: React.FC<Props> = ({ bannerName, reset }) => (
   <Container>
     <Title>{bannerName}</Title>
+    <More onClick={() => reset()}>choose another provider</More>
   </Container>
 )
 
