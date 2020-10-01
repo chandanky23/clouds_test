@@ -1,6 +1,6 @@
-export const theme = {
+const theme = {
   colors: {
-    primaryColor: '#2BB0ED',
+    primaryColor: '#FF3554',
     secondaryColor: '#5ED0FA',
     grayColor: '#616E7C',
     redColor: '#E12D39',
@@ -17,9 +17,11 @@ export const theme = {
     transparent: 'transparent'
   },
   breakpoints: { /** Following MUI breakpoints */
-    sm: 600,
-    md: 960,
-    lg: 1280,
-    xl: 1920
+    sm: '600px',
+    md: '960px',
+    lg: '1280px',
+    xl: '1920px'
   }
 }
+
+export default theme

@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;600;900&display=swap');
+
+body, html {
+  margin: 0;
+  left: 0;
+  top: 0;
+  padding: 0;
+  background-image: linear-gradient(12.96deg, #FF7700 0%, #FF3554 75.96%);
+  font-family: 'Roboto Slab', serif;
+  letter-spacing: 0.1em;
+}

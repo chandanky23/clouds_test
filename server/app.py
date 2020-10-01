@@ -25,27 +25,28 @@ def getCloudsPerProvider():
   
   provider = request.args.get('provider')
   if provider is None:
-    response = {}
+    responseHashTable = {}
+    response = []
     for cloud in cloud_response_aiven['clouds']:
       short_name = cloud['cloud_name'].split('-')[0]
-      if short_name not in response:
-        response[short_name] = getCloudNames(short_name)
+      
+      if short_name not in responseHashTable:
+        responseHashTable[short_name] = short_name
+        response.append({
+          "short_name": short_name,
+          "provider": getCloudNames(short_name)
+        })
 
     return jsonify(response)
-
-
-  region = request.args.get('region')
-  lat = request.args.get('lat')
-  lng = request.args.get('lng')
-  direction = request.args.get('direction')
 
   response = {
     'short_name': '',
     'provider': '',
-    'cloud_instances': []
+    'cloud_instances': [],
+    'regions': []
   }
 
-  # Get the list of clouds as per provider
+  # Get the list of regions as per provider
   for cloud in cloud_response_aiven['clouds']:
     short_name = cloud['cloud_name'].split('-')[0]
 
@@ -53,8 +54,17 @@ def getCloudsPerProvider():
       response['short_name'] = provider.lower()
       response['provider'] = getCloudNames(provider.lower())
       response['cloud_instances'].append(cloud)
+      if cloud['geo_region'] not in response['regions']:
+        response['regions'].append(cloud['geo_region'])
 
-  # update response as per selected region
+  # Collecting params
+  region = request.args.get('region')
+  lat = request.args.get('lat')
+  lng = request.args.get('lng')
+  direction = request.args.get('direction')
+  
+
+  # Show available clouds as per selected region and provider
   if region is not None:
     result = list(filter(lambda reg: reg['geo_region'] == region, response['cloud_instances']))
     response['cloud_instances'] = result

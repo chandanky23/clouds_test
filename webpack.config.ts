@@ -14,7 +14,10 @@ const webpackConfig: webpack.Configuration = {
     publicPath: "/"
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      app: path.resolve(__dirname, 'app')
+    }
   },
   module: {
     rules: [
@@ -23,6 +26,10 @@ const webpackConfig: webpack.Configuration = {
         loader: 'ts-loader',
         exclude: /node_modules/
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
     ],
   },
   plugins: [
@@ -37,7 +44,12 @@ const webpackConfig: webpack.Configuration = {
     compress: true,
     hot: true,
     inline: true,
-    port: 3000
+    port: 3000,
+    proxy: {
+      "/api/*": {
+        target: "http://localhost:5000"
+      }
+    }
   }
 }
 

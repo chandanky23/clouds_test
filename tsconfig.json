@@ -12,7 +12,7 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "app/*": ["app/src/*"],
+      "app/*": ["app/*"],
     },
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
