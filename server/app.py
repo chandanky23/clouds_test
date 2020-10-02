@@ -4,9 +4,15 @@ from utils import getCloudNames, getDistanceAndSort
 from flask_caching import Cache
 
 cache = Cache()
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 app.config['CACHE_TYPE'] = 'simple'
 cache.init_app(app)
+
+
+# Returning the index.html file
+@app.route('/')
+def index():
+  return app.send_static_file('index.html')
 
 # Get the available clouds data from the primary source and cache it.
 @cache.cached(timeout=60*60) # 60 mins cache

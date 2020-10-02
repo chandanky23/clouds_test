@@ -5,6 +5,7 @@ export interface ProviderProps {
   regions: string[]
   clouds: CloudProps[]
   direction: DirectionProps
+  selectedCloud: string
 }
 
 export interface CloudProps {

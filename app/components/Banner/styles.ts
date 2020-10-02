@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const Container = styled.div`
   min-height: 200px;
@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: linear-gradient(to top, #FF3554 75.96%, #FF7700 0%);
+  background-color: linear-gradient(to top, #ff3554 75.96%, #ff7700 0%);
   border-radius: 20px;
   box-shadow: 0px 0px 10px ${({ theme }) => theme.colors.whiteColor};
   position: relative;

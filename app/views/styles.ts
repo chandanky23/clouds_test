@@ -116,3 +116,17 @@ export const Back = styled.div`
   margin-bottom: 20px;
   cursor: pointer;
 `
+
+export const Button = styled.div`
+  width: 200px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 16px;
+  background-color: ${({ theme }) => theme.colors.whiteColor};
+  color: ${({ theme }) => theme.colors.primaryColor};
+  cursor: pointer;
+  text-align: center;
+  &:hover {
+    box-shadow: 0px 0px 3px ${({ theme }) => theme.colors.primaryColor};
+  }
+`

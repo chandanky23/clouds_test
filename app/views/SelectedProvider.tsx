@@ -1,9 +1,10 @@
 import React from 'react'
 import { SelectedProvider } from './styles'
-import { ProviderProps, DirectionProps } from 'app/types'
+import { ProviderProps, DirectionProps, CloudProps } from 'app/types'
 import Banner from 'app/components/Banner'
 import Regions from './Regions'
 import Clouds from './Clouds'
+import Result from './Result'
 
 interface Props {
   provider: ProviderProps
@@ -27,6 +28,7 @@ const Provider: React.FC<Props> = ({ provider, setSelectedProvider }) => {
       regions: [],
       clouds: [],
       direction: 'farthest_first',
+      selectedCloud: '',
     })
   }
 
@@ -34,9 +36,17 @@ const Provider: React.FC<Props> = ({ provider, setSelectedProvider }) => {
     setSelectedProvider({ ...provider, selectedRegion: '' })
   }
 
+  const selectCloud = (cloud: CloudProps) => {
+    setSelectedProvider({ ...provider, selectedCloud: cloud.cloud_name })
+  }
+
+  if (provider.selectedCloud) {
+    return <Result provider={provider} reset={() => reset()} />
+  }
+
   return (
     <SelectedProvider>
-      <Banner bannerName={provider.provider} reset={() => reset()} />
+      <Banner bannerName={provider.provider} reset={() => reset()} testId="selected-provider-bannerId"/>
       <SelectedProvider>
         {provider.selectedRegion ? (
           <Clouds
@@ -44,6 +54,7 @@ const Provider: React.FC<Props> = ({ provider, setSelectedProvider }) => {
             direction={provider.direction}
             setDirection={(d: DirectionProps) => setDirection(d)}
             resetRegion={() => resetRegion()}
+            selectCloud={(cloud: CloudProps) => selectCloud(cloud)}
           />
         ) : (
           <Regions regions={provider.regions || []} handleRegionClick={(reg: string) => selectRegion(reg)} />

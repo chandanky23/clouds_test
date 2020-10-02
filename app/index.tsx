@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom'
 import { ThemeProvider } from 'styled-components'
 import './app.css'
 import Views from './views'
-import theme from './theme'
+import Theme from './theme'
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <Theme>
     <Views />
-  </ThemeProvider>,
+  </Theme>,
   document.getElementById('app')
 )

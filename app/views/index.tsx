@@ -16,6 +16,7 @@ const App: React.FC = () => {
     regions: [],
     clouds: [],
     direction: 'farthest_first',
+    selectedCloud: '',
   })
 
   const { latitude, longitude, error: geoError } = usePosition()
@@ -37,9 +38,8 @@ const App: React.FC = () => {
           />
         </>
       )
-    } else {
-      return <SelectedProvider provider={selectedProvider} setSelectedProvider={setSelectedProvider} />
     }
+    return <SelectedProvider provider={selectedProvider} setSelectedProvider={setSelectedProvider} />
   }
 
   useEffect(() => {
