@@ -1,5 +1,6 @@
 import React from 'react'
 import { SmallCard, Block, Title } from './styles'
+import Card from 'app/components/Card'
 
 interface Props {
   regions: string[]
@@ -11,9 +12,7 @@ const Regions: React.FC<Props> = ({ regions, handleRegionClick }) => (
     <Title>Select your region</Title>
     <Block>
       {regions.map((r, i) => (
-        <SmallCard key={`${i}-${r}`} onClick={() => handleRegionClick(r)}>
-          {r}
-        </SmallCard>
+        <Card body={r} key={`${i}-${r}`} onClick={() => handleRegionClick(r)} />
       ))}
     </Block>
   </>

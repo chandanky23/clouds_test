@@ -5,11 +5,13 @@ import { Container, Left, Right } from './styles'
 interface Props {
   direction: DirectionProps
   setDirection: (p: DirectionProps) => void
+  lat: number | undefined
+  lng: number | undefined
 }
 
-const Switch: React.FC<Props> = ({ direction, setDirection }) => {
+const Switch: React.FC<Props> = ({ direction, setDirection, lat, lng }) => {
   return (
-    <Container>
+    <Container disabled={!lat || !lng}>
       <Left active={direction === 'nearest_first'} onClick={() => setDirection('nearest_first')}>
         Nearest
       </Left>

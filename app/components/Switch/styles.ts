@@ -1,12 +1,19 @@
 import styled, { css } from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.div<{ disabled?: boolean }>`
   width: auto;
   background-color: transparent;
   display: flex;
   border: 1px solid ${({ theme }) => theme.colors.whiteColor};
   border-radius: 20px;
   cursor: pointer;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.4;
+      cursor: not-allowed;
+    `}
 `
 
 export const Left = styled.div<{ active: boolean }>`

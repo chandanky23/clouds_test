@@ -9,9 +9,12 @@ import Result from './Result'
 interface Props {
   provider: ProviderProps
   setSelectedProvider: (p: ProviderProps) => void
+  lat: number | undefined
+  lng: number | undefined
+  geoError: string | undefined
 }
 
-const Provider: React.FC<Props> = ({ provider, setSelectedProvider }) => {
+const Provider: React.FC<Props> = ({ provider, setSelectedProvider, lat, lng, geoError }) => {
   const selectRegion = (region: string) => {
     setSelectedProvider({ ...provider, selectedRegion: region })
   }
@@ -51,6 +54,9 @@ const Provider: React.FC<Props> = ({ provider, setSelectedProvider }) => {
         {provider.selectedRegion ? (
           <Clouds
             clouds={provider.clouds || []}
+            lat={lat}
+            lng={lng}
+            geoError={geoError}
             direction={provider.direction}
             setDirection={(d: DirectionProps) => setDirection(d)}
             resetRegion={() => resetRegion()}

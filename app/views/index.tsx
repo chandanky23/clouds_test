@@ -20,7 +20,6 @@ const App: React.FC = () => {
   })
 
   const { latitude, longitude, error: geoError } = usePosition()
-  console.log(latitude, longitude, geoError)
 
   const sectionToShow = () => {
     if (loading) {
@@ -39,7 +38,15 @@ const App: React.FC = () => {
         </>
       )
     }
-    return <SelectedProvider provider={selectedProvider} setSelectedProvider={setSelectedProvider} />
+    return (
+      <SelectedProvider
+        lat={latitude}
+        lng={longitude}
+        geoError={geoError}
+        provider={selectedProvider}
+        setSelectedProvider={setSelectedProvider}
+      />
+    )
   }
 
   useEffect(() => {
@@ -64,14 +71,14 @@ const App: React.FC = () => {
   }, [selectedProvider.short_name])
 
   useEffect(() => {
+    let url = `/api/v1/clouds?provider=${selectedProvider.short_name}&region=${selectedProvider.selectedRegion}`
     if (latitude && longitude) {
-      fetch(
-        `/api/v1/clouds?provider=${selectedProvider.short_name}&region=${selectedProvider.selectedRegion}&lat=${latitude}&lng=${longitude}&direction=${selectedProvider.direction}`
-      )
-        .then((res) => res.json())
-        .then((data) => setSelectedProvider({ ...selectedProvider, clouds: data.cloud_instances }))
+      url = `${url}&lat=${latitude}&lng=${longitude}&direction=${selectedProvider.direction}`
     }
-  }, [selectedProvider.selectedRegion, selectedProvider.direction])
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setSelectedProvider({ ...selectedProvider, clouds: data.cloud_instances }))
+  }, [selectedProvider.selectedRegion])
 
   return (
     <Container>

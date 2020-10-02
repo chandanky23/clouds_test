@@ -22,8 +22,8 @@ interface Position {
 export const usePosition = () => {
   /** taking default longitude and latitude as it takes time to get the data */
   const [position, setPosition] = useState<Coordinates>({
-    latitude: 15.10,
-    longitude: 60.03
+    latitude: undefined,
+    longitude: undefined
   })
   const [error, setError] = useState<string>()
 
@@ -31,7 +31,7 @@ export const usePosition = () => {
     setPosition({ ...position, latitude: position.coords.latitude, longitude: position.coords.longitude })
   }
   const onError = (error: ErrorProps) => {
-    setError(error.message)
+    setError('Please enable location service')
   }
   useEffect(() => {
     const geo = navigator.geolocation

@@ -52,7 +52,7 @@ const webpackConfig: webpack.Configuration = {
     compress: true,
     hot: true,
     inline: true,
-    port: 3001,
+    port: 3000,
     proxy: {
       "/api/*": {
         target: "http://localhost:5000"

@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "A test project",
   "scripts": {
-    "dev-app": "webpack-dev-server",
-    "dev-server": "cd server && venv/bin/flask run --no-debugger",
-    "dev": "concurrently \"npm:dev-*\"",
-    "prod": "concurrently NODE_ENV=production && webpack && npm run dev-server",
-    "test": "jest",
-    "test:watch": "npm run test -- --watch"
+    "install-server": "cd server && venv/bin/pip3 install -r requirements.txt",
+    "server": "cd server && venv/bin/flask run --no-debugger",
+    "test-server": "cd server && venv/bin/python3 test_app.py",
+    "test": "concurrently \"npm run install-server\" \"npm run server\" \"npm run test-server\"",
+    "app": "webpack-dev-server",
+    "dev": "concurrently \"npm run app\" \"npm run server\"",
+    "test-app": "jest",
+    "test-watch": "npm run test-app -- --watch",
+    "prod": "concurrently NODE_ENV=production && npm i && webpack && npm run install-server && npm run server"
   },
   "repository": {
     "type": "git",

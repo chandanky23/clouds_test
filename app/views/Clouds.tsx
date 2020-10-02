@@ -11,9 +11,12 @@ interface Props {
   setDirection: (p: DirectionProps) => void
   resetRegion: () => void
   selectCloud: (p: CloudProps) => void
+  lat: number | undefined
+  lng: number | undefined
+  geoError: string | undefined
 }
 
-const Clouds: React.FC<Props> = ({ clouds, direction, setDirection, resetRegion, selectCloud }) => (
+const Clouds: React.FC<Props> = ({ clouds, direction, setDirection, resetRegion, selectCloud, lat, lng, geoError }) => (
   <>
     <Back onClick={() => resetRegion()}>
       <img src={backicon} /> &nbsp; Go Back
@@ -22,7 +25,11 @@ const Clouds: React.FC<Props> = ({ clouds, direction, setDirection, resetRegion,
       <Back>
         <Title>Select a cloud</Title>
       </Back>
-      {clouds.length > 1 && <Switch direction={direction} setDirection={setDirection} />}
+      {clouds.length > 1 && geoError ? (
+        <Title>{geoError}</Title>
+      ) : (
+        clouds.length > 1 && <Switch direction={direction} setDirection={setDirection} lat={lat} lng={lng} />
+      )}
     </Filter>
     <Block>
       {clouds.map((c, i) => {
