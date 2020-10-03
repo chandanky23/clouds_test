@@ -6,7 +6,7 @@
     "install-server": "cd server && python3 -m venv venv && venv/bin/pip3 install -r requirements.txt",
     "server": "cd server && venv/bin/flask run --no-debugger",
     "test-server": "cd server && python3 -m venv venv && venv/bin/python3 test_app.py",
-    "test": "concurrently \"npm run install-server\" \"npm run server\" \"npm run test-server\"",
+    "test": "npm i concurrently && concurrently \"npm run install-server\" \"npm run server\" \"npm run test-server\"",
     "app": "webpack-dev-server",
     "dev": "concurrently \"npm run app\" \"npm run server\"",
     "build": "rm -rf build && NODE_ENV=production webpack",
