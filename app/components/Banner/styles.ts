@@ -17,7 +17,7 @@ export const Title = styled.h2`
   font-size: 48px;
 
   @media (max-width: 800px) {
-    font-size: 30px;
+    font-size: 20px;
   }
 `
 
@@ -30,4 +30,8 @@ export const More = styled.div`
   bottom: 20px;
   right: 20px;
   cursor: pointer;
+
+  @media (max-width: 800px) {
+    font-size: 12px;
+  }
 `

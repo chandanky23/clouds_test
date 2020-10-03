@@ -14,6 +14,10 @@ export const Brand = styled.h3`
   width: fit-content;
   padding-bottom: 10px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.whiteColor};
+  @media (max-width: 800px) {
+    font-size: 14px;
+    margin-top: 5%;
+  }
 `
 
 export const Section = styled.div`
@@ -104,6 +108,11 @@ export const Filter = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 
 export const Back = styled.div`

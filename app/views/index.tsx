@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Providers from './Providers'
 import SelectedProvider from './SelectedProvider'
-import { Container, Section, Brand, Headline } from './styles'
+import { Container, Section, Brand, Headline, Title } from './styles'
 import { ProviderProps } from 'app/types'
 import { usePosition } from 'app/useGeoLocation'
 
@@ -23,7 +23,7 @@ const App: React.FC = () => {
 
   const sectionToShow = () => {
     if (loading) {
-      return <h1>Loading</h1>
+      return <Title>Loading...</Title>
     } else if (!selectedProvider.provider) {
       return (
         <>
