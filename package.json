@@ -12,7 +12,8 @@
     "build": "rm -rf build && NODE_ENV=production webpack",
     "test-app": "jest",
     "test-watch": "npm run test-app -- --watch",
-    "prod": "npm i && npm run build && npm run install-server && npm run server"
+    "prod": "npm i && npm run build && npm run install-server && npm run server",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i && webpack --prefix app"
   },
   "repository": {
     "type": "git",
