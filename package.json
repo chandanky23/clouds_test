@@ -12,7 +12,7 @@
     "build": "rm -rf build && NODE_ENV=production webpack",
     "test-app": "jest",
     "test-watch": "npm run test-app -- --watch",
-    "prod": "concurrently NODE_ENV=production && npm i && npm run build && npm run install-server && npm run server"
+    "prod": "NODE_ENV=production && npm i && npm run build && npm run install-server && npm run server"
   },
   "repository": {
     "type": "git",
