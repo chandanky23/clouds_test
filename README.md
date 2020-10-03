@@ -13,8 +13,10 @@ There is caching implemented using `Flask-Caching` with type `Simple` for the ma
 
 ## API's
 
-> `/` Serves the index.html page and the static files
-> `/api/v1/clouds` Serves the application and controls data flow to frontend as per query params.
+* `/` Serves the index.html page and the static files
+* `/api/v1/clouds` Serves the application and controls data flow to frontend as per query params.
+
+>Params
   * `provider=<provider_name>` here the provider name is a short name, i.e, for example **aws** for *Amazon Web Services*
   * `provider=<provider_name>&region=<region_name>` to get all the regions of the specific provider.
   * `provider=<provider>&region=<provider_region>&lng=<user_longitude>&lat=<user_latitude>&direction=<nearest_first or farhest_first>` get the clouds data as per user lat long and direction
