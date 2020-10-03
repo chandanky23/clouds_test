@@ -81,7 +81,3 @@ def getCloudsPerProvider():
     response['cloud_instances'] = getDistanceAndSort(response['cloud_instances'], provided_coordinate, direction)
 
   return response
-
-
-if __name__ == '__main__':
-  app.run()
