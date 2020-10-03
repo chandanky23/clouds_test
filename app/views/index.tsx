@@ -15,7 +15,7 @@ const App: React.FC = () => {
     selectedRegion: '',
     regions: [],
     clouds: [],
-    direction: 'farthest_first',
+    direction: 'nearest_first',
     selectedCloud: '',
   })
 
@@ -69,7 +69,6 @@ const App: React.FC = () => {
       .then((res) => res.json())
       .then((data) => setSelectedProvider({ ...selectedProvider, regions: data.regions }))
   }, [selectedProvider.short_name])
-
   useEffect(() => {
     let url = `/api/v1/clouds?provider=${selectedProvider.short_name}&region=${selectedProvider.selectedRegion}`
     if (latitude && longitude) {
@@ -78,7 +77,7 @@ const App: React.FC = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setSelectedProvider({ ...selectedProvider, clouds: data.cloud_instances }))
-  }, [selectedProvider.selectedRegion])
+  }, [selectedProvider.selectedRegion, selectedProvider.direction])
 
   return (
     <Container>
