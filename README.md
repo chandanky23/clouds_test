@@ -1,25 +1,27 @@
-# TEST
+# PROJECT-CLOUDS
 
 ## Frontend
 
 The app is built using React and Typescript along with Styled-Components for styling.
+The app background uses the gradient color similar to Aiven to keep the look and feel same
+The application is responsive and can be viewed using small devices.
 
 ## Backend
 
 The app is built using Flask for Python 3 and serves as a middleware in between Aiven's Cloud api and React frontend.
+There is caching implemented using `Flask-Caching` with type `Simple` for the main call `/api/v1/clouds` which calls Aiven's end point to get the clouds data. **This caching holds the data for 60 mins which is completely random.**
 
 ## API's
 
-> `/` Serves the index.html page
+> `/` Serves the index.html page and the static files
 > `/api/v1/clouds` Serves the application and controls data flow to frontend as per query params.
   * `provider=<provider_name>` here the provider name is a short name, i.e, for example **aws** for *Amazon Web Services*
   * `provider=<provider_name>&region=<region_name>` to get all the regions of the specific provider.
-  * `provider=<provider>&region=<provider_region>&lng=<user_longitude>&lat=<user_latitude>&direction=<nearest_first or farhest_first>` get the clouds data as per lat lon and direction
+  * `provider=<provider>&region=<provider_region>&lng=<user_longitude>&lat=<user_latitude>&direction=<nearest_first or farhest_first>` get the clouds data as per user lat long and direction
  
-
 ## Get the app
 
-to get the app using:
+To get the app:
 * https: `git clone https://github.com/chandanky23/clouds_test.git`
 * ssh: `git clone git@github.com:chandanky23/clouds_test.git`
 
